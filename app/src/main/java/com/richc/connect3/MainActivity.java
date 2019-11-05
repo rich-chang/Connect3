@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,14 +23,19 @@ public class MainActivity extends AppCompatActivity {
     // To memory each grid status. 2 for unplayed. 0 or 1 means player.
     int[] gameStatus = {2,2,2,2,2,2,2,2,2};
 
+    // All winning positions
+    int[][] winningPosition = {{0,1,2}, {3,4,5}, {6,7,8}, {0,3,6}, {1,4,7}, {2,5,8}, {0,4,8}, {2,4,6}};
+
+    boolean gameIsActive = true;
+
     public void dropIn (View view) {
         ImageView counter = (ImageView) view;
         System.out.println("tag-"+counter.getTag().toString());
 
         int tappedCounter = Integer.parseInt(counter.getTag().toString());
 
-        // If grid is unplayed, then allow to toggle by player
-        if (gameStatus[tappedCounter] == 2) {
+        // If grid is un-played, then allow to toggle by player
+        if ((gameStatus[tappedCounter] == 2) && gameIsActive) {
             gameStatus[tappedCounter] = activePlayer;
 
             counter.setTranslationY(-1000f);
@@ -40,9 +47,45 @@ public class MainActivity extends AppCompatActivity {
                 activePlayer = 0;
             }
             counter.animate().translationYBy(1000f).rotation(360).setDuration(300);
+
+            // Check winning
+            for (int[] winningPosition: winningPosition) {
+
+                // if WIN
+                if (gameStatus[winningPosition[0]] == gameStatus[winningPosition[1]] &&
+                        gameStatus[winningPosition[1]] == gameStatus[winningPosition[2]] &&
+                        gameStatus[winningPosition[0]] != 2) {
+
+                    // Show msg
+                    String winningPalyer = "yellow";
+                    if (gameStatus[winningPosition[0]] == 1) {
+                        winningPalyer = "Red";
+                    }
+                    TextView winningMsgText = findViewById(R.id.winningMsgTextView);
+                    winningMsgText.setText(winningPalyer + " has won!!!");
+
+                    // Show whole winning layout
+                    LinearLayout layout = findViewById(R.id.winningMsgLayout);
+                    layout.setVisibility(View.VISIBLE);
+
+                    gameIsActive = false;
+                }
+                else {
+                    // No win
+                }
+            }
         }
         else {
-            Toast.makeText(MainActivity.this, "This grid already been played", Toast.LENGTH_SHORT).show();
+            // Show error msg
+            if (!gameIsActive) {
+                Toast.makeText(MainActivity.this, "Game Over. Press [Play Again] button to restart.", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                if (gameStatus[tappedCounter] != 2) {
+                    Toast.makeText(MainActivity.this, "This grid already been played", Toast.LENGTH_SHORT).show();
+                }
+            }
+
         }
     }
 }
