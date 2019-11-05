@@ -2,6 +2,7 @@ package com.richc.connect3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.GridLayout;
@@ -68,17 +69,21 @@ public class MainActivity extends AppCompatActivity {
                         gameStatus[winningPosition[1]] == gameStatus[winningPosition[2]] &&
                         gameStatus[winningPosition[0]] != 2) {
 
-                    // Show msg
-                    String winningPalyer = "yellow";
-                    if (gameStatus[winningPosition[0]] == 1) {
-                        winningPalyer = "Red";
-                    }
-                    TextView winningMsgText = findViewById(R.id.winningMsgTextView);
-                    winningMsgText.setText(winningPalyer + " has won!!!");
+                    LinearLayout li = findViewById(R.id.winningMsgLayout);
+                    String winningPlayer;
 
-                    // Show whole winning layout
-                    LinearLayout layout = findViewById(R.id.winningMsgLayout);
-                    layout.setVisibility(View.VISIBLE);
+                    if (gameStatus[winningPosition[0]] == 1) {
+                        winningPlayer = "Red";
+                        li.setBackgroundColor(Color.RED);
+                    } else {
+                        winningPlayer = "yellow";
+                        li.setBackgroundColor(Color.YELLOW);
+                    }
+
+                    TextView winningMsgText = findViewById(R.id.winningMsgTextView);
+                    winningMsgText.setText(winningPlayer + " has won!!!");
+
+                    li.setVisibility(View.VISIBLE);
 
                     gameIsActive = false;
                 }
