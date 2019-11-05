@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     public void dropIn (View view) {
         ImageView counter = (ImageView) view;
 
+        System.out.println(counter.getTag().toString());
+
         counter.setTranslationY(-1000f);
         counter.setImageResource(R.drawable.yellow);
         counter.animate().translationYBy(1000f).rotation(360).setDuration(300);
