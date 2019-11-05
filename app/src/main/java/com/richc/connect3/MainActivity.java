@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,13 +21,24 @@ public class MainActivity extends AppCompatActivity {
     // 0 for yellow, 1 for red
     int activePlayer = 0;
 
-    // To memory each grid status. 2 for unplayed. 0 or 1 means player.
+    // To memory each grid status. 2 for un-played. 0 or 1 means player.
     int[] gameStatus = {2,2,2,2,2,2,2,2,2};
 
     // All winning positions
     int[][] winningPosition = {{0,1,2}, {3,4,5}, {6,7,8}, {0,3,6}, {1,4,7}, {2,5,8}, {0,4,8}, {2,4,6}};
 
     boolean gameIsActive = true;
+
+    // Image resource
+    int[] gridImageResource = {R.id.imageView,
+            R.id.imageView2,
+            R.id.imageView3,
+            R.id.imageView4,
+            R.id.imageView5,
+            R.id.imageView6,
+            R.id.imageView7,
+            R.id.imageView8,
+            R.id.imageView9};
 
     public void dropIn (View view) {
         ImageView counter = (ImageView) view;
@@ -85,7 +97,20 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "This grid already been played", Toast.LENGTH_SHORT).show();
                 }
             }
-
         }
+    }
+
+    public void playAgain (View view) {
+
+        LinearLayout layout = findViewById(R.id.winningMsgLayout);
+        layout.setVisibility(View.INVISIBLE);
+
+        gameIsActive = true;
+        activePlayer = 0;
+
+        for (int i=0; i<gameStatus.length; i++) gameStatus[i] = 2;
+
+        for (int i=0; i<gridImageResource.length; i++)
+            ((ImageView) findViewById(gridImageResource[i])).setImageResource(0);
     }
 }

@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/gridLayout"
+        android:id="@+id/gameGridLayout"
         android:layout_width="match_parent"
         android:layout_height="360dp"
         android:layout_marginTop="185dp"
@@ -149,11 +149,11 @@
         android:gravity="center_horizontal|center_vertical"
         android:orientation="vertical"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
-        app:layout_constraintEnd_toStartOf="@+id/gridLayout"
+        app:layout_constraintBottom_toTopOf="@+id/gameGridLayout"
+        app:layout_constraintEnd_toStartOf="@+id/gameGridLayout"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/gridLayout"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout">
+        app:layout_constraintStart_toEndOf="@+id/gameGridLayout"
+        app:layout_constraintTop_toBottomOf="@+id/gameGridLayout">
 
         <TextView
             android:id="@+id/winningMsgTextView"
@@ -166,6 +166,7 @@
             android:id="@+id/playAgainButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="playAgain"
             android:text="Play Again" />
     </LinearLayout>
 
