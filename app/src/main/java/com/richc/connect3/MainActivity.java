@@ -82,8 +82,22 @@ public class MainActivity extends AppCompatActivity {
 
                     gameIsActive = false;
                 }
-                else {
-                    // No win
+                else { // No win: DRAW
+                    boolean gameIsOver;
+                    gameIsOver = true;
+
+                    // If one of them is 2, means game is not over yet.
+                    for (int counterState : gameStatus) {
+                        if (counterState == 2) gameIsOver = false;
+                    }
+
+                    if (gameIsOver) {
+                        TextView winningMsgText = findViewById(R.id.winningMsgTextView);
+                        winningMsgText.setText("It's a DRAW");
+
+                        LinearLayout layout = findViewById(R.id.winningMsgLayout);
+                        layout.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         }
@@ -108,9 +122,12 @@ public class MainActivity extends AppCompatActivity {
         gameIsActive = true;
         activePlayer = 0;
 
-        for (int i=0; i<gameStatus.length; i++) gameStatus[i] = 2;
+        for (int i=0; i<gameStatus.length; i++) {
+            gameStatus[i] = 2;
+        }
 
-        for (int i=0; i<gridImageResource.length; i++)
+        for (int i=0; i<gridImageResource.length; i++) {
             ((ImageView) findViewById(gridImageResource[i])).setImageResource(0);
+        }
     }
 }
