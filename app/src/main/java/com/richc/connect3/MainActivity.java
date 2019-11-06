@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 counter.setImageResource(R.drawable.red);
                 activePlayer = 0;
             }
-            counter.animate().translationYBy(1000f).rotation(360).setDuration(300);
+            counter.animate().translationYBy(1000f).rotation(360).setDuration(100);
 
             // Check winning
             for (int[] winningPosition: winningPosition) {
@@ -100,8 +100,9 @@ public class MainActivity extends AppCompatActivity {
                         TextView winningMsgText = findViewById(R.id.winningMsgTextView);
                         winningMsgText.setText("It's a DRAW");
 
-                        LinearLayout layout = findViewById(R.id.winningMsgLayout);
-                        layout.setVisibility(View.VISIBLE);
+                        LinearLayout li = findViewById(R.id.winningMsgLayout);
+                        li.setBackgroundColor(Color.GREEN);
+                        li.setVisibility(View.VISIBLE);
                     }
                 }
             }
